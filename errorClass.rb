@@ -1,6 +1,6 @@
 $stdout.sync=true
 class RBasicErr
-  def initalize(aname="UnknownError",more="Unknown Error")
+  def initalize(aname="UnknownError")
     @name=aname
   end
   def throw(ext)

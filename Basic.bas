@@ -1,3 +1,5 @@
-SET name Jack;
-CPRINT "My name is :";
-VPRINT name;
+START;
+SET greet Hello;
+VPRINT greet;
+PRINT "hELLO";
+EVAL {START|PRINT "greet"}
