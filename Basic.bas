@@ -1,5 +1,4 @@
 START;
-SET greet Hello;
-VPRINT greet;
-PRINT "hELLO";
-EVAL {START|PRINT "greet"}
+SUB Hi#SET NAME "Jack"|VPRINT NAME;
+EXCUTE Hi;
+VPRINT NAME;
