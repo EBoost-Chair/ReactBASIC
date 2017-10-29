@@ -23,8 +23,8 @@ Red(R):A Version That have Already Sured Have Some Bugs
 
 Newest updates:
 ===
->0.01_G Released!
+>0.01 Ended!
 
->0.01_G is the first version that can normally work.
+>0.01 is ended and we will go to 0.02,another color loop will begin.
 
->If you want to try 0.01_G read the GUIDE.md first
+>Let's look forward to it!
