@@ -1,8 +1,9 @@
 #!/usr/bin/ruby
-require "/root/Desktop/RBASIC/0.01_Y/errorClass.rb"
-require "/root/Desktop/RBASIC/0.01_Y/error.rb"
-require "/root/Desktop/RBASIC/0.01_G/sub.rb"
+require "/root/Desktop/RBASIC/0.02_Y/errorClass.rb"
+require "/root/Desktop/RBASIC/0.02_Y/error.rb"
+require "/root/Desktop/RBASIC/0.02_Y/sub.rb"
 $Var={}
+$Sub={}
 def Parse_Basic(such)
   if /^PRINT/ =~ such
     such.slice!(0,8)
@@ -18,13 +19,13 @@ def Parse_Basic(such)
   elsif /^REM/ =~ such
   elsif /^START/ =~ such
   elsif /^SET/ =~ such
-    such.slice!(0,4)
-    list = such.split()
-    $Var[list[0]] = list[1]
+    such.slice!(0,5)
+    list = such.split("#")
+    $Var[list[0]]=list[1]
   elsif /^SUB/ =~ such
     such.slice!(0,5)
     list = such.split("#")
-    $Var[list[0]] = list[1]
+    $Sub[list[0]]=list[1]
   elsif /^VPRINT/ =~ such
     such.slice!(0,8)
     if $Var.include?(such)
@@ -41,7 +42,7 @@ def Parse_Basic(such)
     end
   elsif /^EXCUTE/ =~ such
     such.slice!(0,8)
-    RBasicSub($Var[such])
+    RBasicSub($Sub[such])
   else
     $NoCmdErr.throw(such)
   end
@@ -53,7 +54,7 @@ def Parse_Block(such)
     puts(such)
   elsif /^CPRINT/ =~ such
     such.slice!(0,9)
-    such.slice!(-2)
+    such.slice!(-1)
     print(such)
   elsif /^END/ =~ such
     puts()
@@ -61,15 +62,22 @@ def Parse_Block(such)
   elsif /^REM/ =~ such
   elsif /^START/ =~ such
   elsif /^SET/ =~ such
-    such.slice!(0,4)
-    list = such.split()
-    $Var[list[0]] = list[1]
+    such.slice!(0,5)
+    list = such.split("#")
+    $Var[list[0]]=list[1]
   elsif /^VPRINT/ =~ such
     such.slice!(0,7)
     if $Var.include?(such)
       puts($Var[such])
     else
       $NoVarErr.throw(such)
+    end
+  elsif /^EVAL/ =~ such
+    such.slice!(0,7)
+    such.slice!(-1)
+    list=such.split("|")
+    list.each do |i|
+      Parse_Block(i)
     end
   else
     $NoCmdErr.throw(such)
