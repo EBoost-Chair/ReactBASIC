@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+# RBasic booter
+ruby RBasic.rb $1
