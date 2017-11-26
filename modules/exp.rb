@@ -18,4 +18,8 @@ def RBasicExp(such)
     list[0].delete!("\n")
     $Var[list[1]]=list[0]
   end
+  if /^eql:/ =~ list[0]
+    list[0].slice!(0,4)
+    $Var[list[1]]=$Var[list[0]]
+  end
 end
