@@ -1,5 +1,5 @@
-require "/root/Desktop/RBASIC/0.02_G/modules/kernel.rb"
-require "/root/Desktop/RBASIC/0.02_G/core/tokens.rb"
+require "/root/Desktop/RBASIC/0.03/modules/kernel.rb"
+require "/root/Desktop/RBASIC/0.03/core/tokens.rb"
 def RBasicExp(such)
   $NoCmd_b=0
   if such.include?(">>") == false
@@ -14,12 +14,21 @@ def RBasicExp(such)
     else
       $Var[list[1]]="False"
     end
-  else
-    list[0].delete!("\n")
-    $Var[list[1]]=list[0]
   end
   if /^eql:/ =~ list[0]
     list[0].slice!(0,4)
     $Var[list[1]]=$Var[list[0]]
+  end
+  if /^not:/ =~ list[0]
+    list[0].slice!(0,5)
+    if $Var[list[0]]=="True"
+        $Var[list[1]]="False"
+    elsif $Var[list[0]]=="False"
+        $Var[list[1]]="True"
+    end
+  end
+  if /^var:/ =~ list[0]
+    list[0].slice!(0,5) 
+    $Var[list[1]]=list[0]
   end
 end
