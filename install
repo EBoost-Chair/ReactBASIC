@@ -1,0 +1,13 @@
+#!/usr/bin/sh
+# RBasic installer
+# Written By Lonely_Man<2754887003@qq.com>
+# 2017.12.9
+echo "Start installing RBasic-lang's main body..."
+echo "Version:1.00 Helios"
+sudo mkdir /RBasic
+sudo mkdir /RBasic/core
+sudo mkdir /RBasic/modules
+sudo cp ./core/* /RBasic/core/
+sudo cp ./modules/* /RBasic/modules/
+sudo cp ./RBasic.rb /RBasic
+echo "done."

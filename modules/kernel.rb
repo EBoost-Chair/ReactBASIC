@@ -1,9 +1,9 @@
 #!/usr/bin/ruby
-require "/root/Desktop/RBASIC/0.03/core/errorClass.rb"
-require "/root/Desktop/RBASIC/0.03/core/error.rb"
-require "/root/Desktop/RBASIC/0.03/core/sub.rb"
-require "/root/Desktop/RBASIC/0.03/core/funcKill.rb"
-require "/root/Desktop/RBASIC/0.03/core/tokens.rb"
+require "./core/errorClass.rb"
+require "./core/error.rb"
+require "./core/sub.rb"
+require "./core/funcKill.rb"
+require "./core/tokens.rb"
 $Var={}
 $Sub={}
 $S_Var={}

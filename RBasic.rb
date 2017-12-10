@@ -2,9 +2,9 @@
 # RBasic.rb
 # Ruby BASIC complier
 # Need:Define,Var,Call
-require "/root/Desktop/RBASIC/0.03/modules/main.rb"
-require "/root/Desktop/RBASIC/0.03/core/tokens.rb"
-require "/root/Desktop/RBASIC/0.03/core/error.rb"
+require "./modules/main.rb"
+require "./core/tokens.rb"
+require "./core/error.rb"
 if ARGV[0] == "-v"
   puts "rbasic 0.03 (2017-12-3)"
   exit()
