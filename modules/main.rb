@@ -1,5 +1,5 @@
-require "/root/Desktop/RBASIC/0.03/modules/kernel.rb"
-require "/root/Desktop/RBASIC/0.03/modules/exp.rb"
+require "./modules/kernel.rb"
+require "./modules/exp.rb"
 def RBasicMain(such)
   Parse_Basic(such)
   RBasicExp(such)

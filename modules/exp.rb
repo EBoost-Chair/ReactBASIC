@@ -1,5 +1,5 @@
-require "/root/Desktop/RBASIC/0.03/modules/kernel.rb"
-require "/root/Desktop/RBASIC/0.03/core/tokens.rb"
+require "./modules/kernel.rb"
+require "./core/tokens.rb"
 def RBasicExp(such)
   $NoCmd_b=0
   if such.include?(">>") == false
