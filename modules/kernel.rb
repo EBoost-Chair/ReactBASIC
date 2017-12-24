@@ -4,9 +4,6 @@ require "./core/error.rb"
 require "./core/sub.rb"
 require "./core/funcKill.rb"
 require "./core/tokens.rb"
-$Var={}
-$Sub={}
-$S_Var={}
 def Parse_Basic(such)
   $NoCmd_a=0
   if /^Print/ =~ such

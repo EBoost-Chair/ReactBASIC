@@ -1,5 +1,6 @@
 require "./modules/kernel.rb"
 require "./core/tokens.rb"
+require "./core/protrol.rb"
 def RBasicExp(such)
   $NoCmd_b=0
   if such.include?(">>") == false
