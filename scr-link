@@ -1,0 +1,5 @@
+#!/usr/bin/sh
+# If you want to "include" something from other files.
+# Use this script
+cat $2 >> $1
+

@@ -1,12 +1,14 @@
 Rem ==============;
 Rem Basic.bas;
 Rem This is the example of RBasic Programming Language;
-Rem RBasicTeam,All rights reserved 2017;
+Rem RBasicTeam 2017;
 Rem Written by RBasicTeam 2017.11.18;
 Rem ==============;
 Start;
 var:a>>man;
 var:a>>man2;
+VPrint man2;
+VPrint man;
 compare:man|man2>>c;
 not:c>>c;
 VPrint c;
