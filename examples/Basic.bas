@@ -7,6 +7,8 @@ Rem ==============;
 Start;
 var:a>>man;
 var:a>>man2;
+VPrint man2;
+VPrint man;
 compare:man|man2>>c;
 not:c>>c;
 VPrint c;

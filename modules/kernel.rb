@@ -4,6 +4,7 @@ require "./core/error.rb"
 require "./core/sub.rb"
 require "./core/funcKill.rb"
 require "./core/tokens.rb"
+require "./modules/main.rb"
 def Parse_Basic(such)
   $NoCmd_a=0
   if /^Print/ =~ such
@@ -20,7 +21,7 @@ def Parse_Basic(such)
   elsif /^Rem/ =~ such
   elsif /^Start/ =~ such
   elsif /^Sub/ =~ such
-    such.slice!(0,5)
+    such.slice!(0,4)
     list = such.split("#")
     $Sub[list[0]]=list[1]
   elsif /^VPrint/ =~ such
@@ -40,7 +41,10 @@ def Parse_Basic(such)
   elsif /^Excute/ =~ such
     such.slice!(0,8)
     if $Sub.include?(such)
-      RBasicSub($Sub[such])
+      list=$Sub[such].split("|")
+      list.each do |i|
+        RBasicBlockMain(i)
+      end
     else
       $NoSubErr.throw(such)
     end
@@ -50,6 +54,7 @@ def Parse_Basic(such)
   end
 end
 def Parse_Block(such)
+  $NoCmd_a=0
   if /^Print/ =~ such
     such.slice!(0,7)
     such.slice!(-1)
@@ -69,8 +74,8 @@ def Parse_Block(such)
     $S_Var[list[0]]=list[1]
   elsif /^VPrint/ =~ such
     such.slice!(0,7)
-    if $S_Var.include?(such)
-      puts($S_Var[such])
+    if $Var.include?(such)
+      puts($Var[such])
     else
       $NoVarErr.throw(such)
     end
