@@ -62,6 +62,6 @@ def RBasicBlockExp(such)
   end
   if /^var:/ =~ list[0]
     list[0].slice!(0,4)
-    $Var[list[1]]=list[0]
+    $S_Var[list[1]]=list[0]
   end
 end
