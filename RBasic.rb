@@ -6,7 +6,7 @@ require "./modules/main.rb"
 require "./core/tokens.rb"
 require "./core/error.rb"
 if ARGV[0] == "-v"
-  puts "rbasic 1.02 (2017-12-29) By RBasicTeam"
+  puts "rbasic 1.03 (2018-1-7) By RBasicTeam"
   exit()
 end
 if FileTest.exist?(ARGV[0]) != true
