@@ -1,2 +1,2 @@
-Sub Hello#Print "Hello!"|Print "TBC"|var:abc>>alpha|VPrint alpha;
+Sub Hello#Print "Hello!"|Print "TBC"|var:abc>>alpha|VPrint alpha|EndSub;
 Excute Hello;

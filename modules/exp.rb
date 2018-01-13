@@ -1,3 +1,7 @@
+#!/usr/bin/ruby
+# exp.rb
+# Ruby BASIC's expression module.
+# By Lonely_Man<2754887003@qq.com>
 require "./modules/kernel.rb"
 require "./core/tokens.rb"
 require "./core/protrol.rb"

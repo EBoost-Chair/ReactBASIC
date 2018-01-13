@@ -1,12 +1,13 @@
 #!/usr/bin/ruby -W0
 # RBasic.rb
-# Ruby BASIC complier
+# Ruby BASIC's main script.
+# By Lonely_Man<2754887003@qq.com>
 # Need:Define,Var,Call
 require "./modules/main.rb"
 require "./core/tokens.rb"
 require "./core/error.rb"
 if ARGV[0] == "-v"
-  puts "rbasic 1.02 (2017-12-29) By RBasicTeam"
+  puts "rbasic 1.04 (2018-1-18) By RBasicTeam"
   exit()
 end
 if FileTest.exist?(ARGV[0]) != true
