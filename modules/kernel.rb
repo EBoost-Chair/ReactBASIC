@@ -1,4 +1,7 @@
 #!/usr/bin/ruby
+# kernel.rb
+# Ruby BASIC's kernel functions module
+# By Lonely_Man<2754887003@qq.com>
 require "./core/errorClass.rb"
 require "./core/error.rb"
 require "./core/sub.rb"
@@ -15,7 +18,7 @@ def Parse_Basic(such)
     such.slice!(0,9)
     such.slice!(-1)
     print(such)
-  elsif /^End/ =~ such
+  elsif /^Exit/ =~ such
     puts()
     exit()
   elsif /^Rem/ =~ such
@@ -42,8 +45,12 @@ def Parse_Basic(such)
     such.slice!(0,8)
     if $Sub.include?(such)
       list=$Sub[such].split("|")
+      $Name=such
       list.each do |i|
         RBasicBlockMain(i)
+      end
+      if $RTken==1
+        $NoCmd_a=0
       end
     else
       $NoSubErr.throw(such)
@@ -63,7 +70,7 @@ def Parse_Block(such)
     such.slice!(0,9)
     such.slice!(-1)
     print(such)
-  elsif /^End/ =~ such
+  elsif /^Exit/ =~ such
     puts()
     exit()
   elsif /^Rem/ =~ such
@@ -86,6 +93,8 @@ def Parse_Block(such)
     list.each do |i|
       Parse_Block(i)
     end
+  elsif /^EndSub/ =~ such
+    $RTken=1
   else
     $NoCmd_a=1
   end
