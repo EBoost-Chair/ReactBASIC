@@ -1,0 +1,5 @@
+#!/usr/bin/sh
+# RBasic starter
+# Written By Lonely_Man<2754887003@qq.com>
+# 2017.12.9
+ruby /RBasic/RBasic.rb $1

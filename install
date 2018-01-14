@@ -10,4 +10,6 @@ sudo mkdir /RBasic/modules
 sudo cp ./core/* /RBasic/core/
 sudo cp ./modules/* /RBasic/modules/
 sudo cp ./RBasic.rb /RBasic
+sudo cp  rbasic /usr/local/bin
+sudo chmod 777 /usr/local/bin/rbasic
 echo "done."

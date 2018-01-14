@@ -26,15 +26,15 @@ def RBasicExp(such)
   end
   if /^not:/ =~ list[0]
     list[0].slice!(0,5)
-    if $Var[list[0]]=="True"
-        $Var[list[1]]="False"
-    elsif $Var[list[0]]=="False"
-        $Var[list[1]]="True"
+    if $S_Var[list[0]]=="True"
+        $S_Var[list[1]]="False"
+    elsif $S_Var[list[0]]=="False"
+        $S_Var[list[1]]="True"
     end
   end
   if /^var:/ =~ list[0]
     list[0].slice!(0,5)
-    $Var[list[1]]=list[0]
+    $S_Var[list[1]]=list[0]
   end
 end
 def RBasicBlockExp(such)
@@ -66,6 +66,6 @@ def RBasicBlockExp(such)
   end
   if /^var:/ =~ list[0]
     list[0].slice!(0,4)
-    $Var[list[1]]=list[0]
+    $S_Var[list[1]]=list[0]
   end
 end
