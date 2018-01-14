@@ -81,8 +81,8 @@ def Parse_Block(such)
     $S_Var[list[0]]=list[1]
   elsif /^VPrint/ =~ such
     such.slice!(0,7)
-    if $Var.include?(such)
-      puts($Var[such])
+    if $S_Var.include?(such)
+      puts($S_Var[such])
     else
       $NoVarErr.throw(such)
     end
