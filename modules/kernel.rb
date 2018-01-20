@@ -47,6 +47,10 @@ def Parse_Basic(such)
       list=$Sub[such].split("|")
       $Name=such
       list.each do |i|
+        RBasicCheckMain(i)
+        if $PCheck_a==1 && $PCheck_b==1
+          $NoCmdErr.throw(i)
+        end 
         RBasicBlockMain(i)
       end
       if $RTken==1
@@ -97,5 +101,20 @@ def Parse_Block(such)
     $RTken=1
   else
     $NoCmd_a=1
+  end
+end
+def RBasicKernelCheck(such)
+  $PCheck_b=0
+  if /^Print/ =~ such
+  elsif /^CPrint/ =~ such
+  elsif /^Exit/ =~ such
+  elsif /^Rem/ =~ such
+  elsif /^Start/ =~ such
+  elsif /^Set/ =~ such
+  elsif /^VPrint/ =~ such
+  elsif /^Eval/ =~ such
+  elsif /^EndSub/ =~ such
+  else
+    $PCheck_b=1   
   end
 end

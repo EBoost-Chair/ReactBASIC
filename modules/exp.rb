@@ -69,3 +69,10 @@ def RBasicBlockExp(such)
     $S_Var[list[1]]=list[0]
   end
 end
+def RBasicExpCheck(such)
+  $PCheck_a=0
+  if such.include?(">>")
+  else
+    $PCheck_a=1   
+  end
+end
