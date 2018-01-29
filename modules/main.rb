@@ -15,3 +15,8 @@ def RBasicBlockMain(such)
   Parse_Block(such)
   RBasicBlockExp(such)
 end
+
+def RBasicCheckMain(such)
+  RBasicExpCheck(such)
+  RBasicKernelCheck(such)
+end

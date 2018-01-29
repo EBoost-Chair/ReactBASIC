@@ -1,3 +1,2 @@
-Sub Hello#Print "Hello!"|Print "TBC"|var:True>>alpha|VPrint alpha|EndSub;
-Excute Hello;
-Excute Hello;
+Sub Echo#VPrint a;
+Excute Echo#(a:hi~cman)
