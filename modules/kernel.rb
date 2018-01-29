@@ -13,6 +13,9 @@ def Parse_Basic(such)
   if /^Print/ =~ such
     such.slice!(0,8)
     such.slice!(-1)
+    such.gsub!("~c",$Sym_Table["~c"])
+    such.gsub!("~~",$Sym_Table["~~"])
+    such.gsub!("~s",$Sym_Table["~s"])
     puts(such)
   elsif /^CPrint/ =~ such
     such.slice!(0,9)
@@ -43,10 +46,18 @@ def Parse_Basic(such)
     end
   elsif /^Excute/ =~ such
     such.slice!(0,8)
-    if $Sub.include?(such)
-      list=$Sub[such].split("|")
+    list=such.split("#")
+    list[1].slice!(0)
+    list[1].slice!(-1)
+    list1=list[1].split(",")
+    list1.each do |i|
+      j=i.split(":")
+      $S_Var[j[0]]=j[1]
+    end
+    if $Sub.include?(list[0])
+      list0=$Sub[list[0]].split("|")
       $Name=such
-      list.each do |i|
+      list0.each do |i|
         RBasicCheckMain(i)
         if $PCheck_a==1 && $PCheck_b==1
           $NoCmdErr.throw(i)
@@ -69,6 +80,9 @@ def Parse_Block(such)
   if /^Print/ =~ such
     such.slice!(0,7)
     such.slice!(-1)
+    such.gsub!("~c",$Sym_Table["~c"])
+    such.gsub!("~~",$Sym_Table["~~"])
+    such.gsub!("~s",$Sym_Table["~s"])
     puts(such)
   elsif /^CPrint/ =~ such
     such.slice!(0,9)
@@ -86,7 +100,11 @@ def Parse_Block(such)
   elsif /^VPrint/ =~ such
     such.slice!(0,7)
     if $S_Var.include?(such)
-      puts($S_Var[such])
+      a=$S_Var[such]
+      a.gsub!("~c",$Sym_Table["~c"])
+      a.gsub!("~~",$Sym_Table["~~"])
+      a.gsub!("~s",$Sym_Table["~s"])
+      puts a
     else
       $NoVarErr.throw(such)
     end
