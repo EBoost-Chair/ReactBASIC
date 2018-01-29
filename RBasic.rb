@@ -7,8 +7,11 @@ require "./modules/main.rb"
 require "./core/tokens.rb"
 require "./core/error.rb"
 if ARGV.include?("-v")
-  puts "rbasic 1.08 (2018-1-29) By RBasicTeam"
+  puts "rbasic 1.08 patch2(2018-1-29) By RBasicTeam"
   exit()
+end
+if ARGV.include?("--debug")
+  puts "rbasic 1.08 patch2(2018-1-29) By RBasicTeam"
 end
 if FileTest.exist?(ARGV[0]) != true
   $NoFileErr.throw(ARGV[0])
