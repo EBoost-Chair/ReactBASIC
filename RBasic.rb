@@ -36,4 +36,6 @@ Basic.each do |loop|
     $NoCmdErr.throw(loop)
   end
 end
-puts "[System:All Commands Ran Successfully.]"
+if ARGV.include?("--debug")
+  puts "[System:All Commands Ran Successfully.]"
+end

@@ -13,10 +13,11 @@ def Parse_Basic(such)
   if /^Print/ =~ such
     such.slice!(0,8)
     such.slice!(-1)
-    such.gsub!("~c",$Sym_Table["~c"])
-    such.gsub!("~~",$Sym_Table["~~"])
-    such.gsub!("~s",$Sym_Table["~s"])
-    puts(such)
+    a=such
+    $Sym_Table.each do |i,j|
+      a.gsub!(i,j)
+    end
+    puts(a)
   elsif /^CPrint/ =~ such
     such.slice!(0,9)
     such.slice!(-1)
@@ -80,9 +81,9 @@ def Parse_Block(such)
   if /^Print/ =~ such
     such.slice!(0,7)
     such.slice!(-1)
-    such.gsub!("~c",$Sym_Table["~c"])
-    such.gsub!("~~",$Sym_Table["~~"])
-    such.gsub!("~s",$Sym_Table["~s"])
+    $Sym_Table.each do |i,j|
+      a.gsub!(i,j)
+    end
     puts(such)
   elsif /^CPrint/ =~ such
     such.slice!(0,9)
@@ -101,9 +102,9 @@ def Parse_Block(such)
     such.slice!(0,7)
     if $S_Var.include?(such)
       a=$S_Var[such]
-      a.gsub!("~c",$Sym_Table["~c"])
-      a.gsub!("~~",$Sym_Table["~~"])
-      a.gsub!("~s",$Sym_Table["~s"])
+      $Sym_Table.each do |i,j|
+        a.gsub!(i,j)
+      end
       puts a
     else
       $NoVarErr.throw(such)
@@ -115,6 +116,10 @@ def Parse_Block(such)
     list.each do |i|
       Parse_Block(i)
     end
+  elsif /^Return/ =~ such
+    such.slice!(0,7)
+    list=such.split(",")
+    $Var[list[0]]=list[1]
   elsif /^EndSub/ =~ such
     $RTken=1
   else
@@ -131,6 +136,7 @@ def RBasicKernelCheck(such)
   elsif /^Set/ =~ such
   elsif /^VPrint/ =~ such
   elsif /^Eval/ =~ such
+  elsif /^Return/ =~ such
   elsif /^EndSub/ =~ such
   else
     $PCheck_b=1   
