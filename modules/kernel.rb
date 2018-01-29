@@ -27,6 +27,10 @@ def Parse_Basic(such)
     exit()
   elsif /^Rem/ =~ such
   elsif /^Start/ =~ such
+  elsif /^Sleep/ =~ such
+    such.slice!(0,6)
+    int=such.to_i()
+    sleep(int)
   elsif /^Sub/ =~ such
     such.slice!(0,4)
     list = such.split("#")
@@ -85,6 +89,10 @@ def Parse_Block(such)
       a.gsub!(i,j)
     end
     puts(such)
+  elsif /^Sleep/ =~ such
+    such.slice!(0,5)
+    int=such.to_i()
+    sleep(int)
   elsif /^CPrint/ =~ such
     such.slice!(0,9)
     such.slice!(-1)
@@ -137,6 +145,7 @@ def RBasicKernelCheck(such)
   elsif /^VPrint/ =~ such
   elsif /^Eval/ =~ such
   elsif /^Return/ =~ such
+  elsif /^Sleep/ =~ such
   elsif /^EndSub/ =~ such
   else
     $PCheck_b=1   
