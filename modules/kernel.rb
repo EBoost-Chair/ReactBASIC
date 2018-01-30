@@ -18,6 +18,27 @@ def Parse_Basic(such)
       a.gsub!(i,j)
     end
     puts(a)
+  elsif /^InputBox/ =~ such
+    such.slice!(0,10)
+    list=such.split(",")
+    $Sym_Table.each do |i,j|
+      list[0].gsub!(i,j)
+    end
+    $Sym_Table.each do |i,j|
+      list[1].gsub!(i,j)
+    end
+    a=`whiptail --title #{list[0]} --inputbox #{list[1]} 10 60 3>&1 1>&2 2>&3`
+    $Var[list[2]]=a
+  elsif /^MsgBox/ =~ such
+    such.slice!(0,7)
+    list=such.split(",")
+    $Sym_Table.each do |i,j|
+      list[0].gsub!(i,j)
+    end
+    $Sym_Table.each do |i,j|
+      list[1].gsub!(i,j)
+    end
+    system "whiptail --title #{list[0]} --msgbox #{list[1]} 10 60"
   elsif /^CPrint/ =~ such
     such.slice!(0,9)
     such.slice!(-1)
@@ -32,7 +53,7 @@ def Parse_Basic(such)
     int=such.to_i()
     sleep(int)
   elsif /^Sub/ =~ such
-    such.slice!(0,4)
+    such.slice!(0,5)
     list = such.split("#")
     $Sub[list[0]]=list[1]
   elsif /^VPrint/ =~ such
@@ -102,6 +123,17 @@ def Parse_Block(such)
     exit()
   elsif /^Rem/ =~ such
   elsif /^Start/ =~ such
+  elsif /^InputBox/ =~ such
+    such.slice!(0,9)
+    list=such.split(",")
+    $Sym_Table.each do |i,j|
+      list[0].gsub!(i,j)
+    end
+    $Sym_Table.each do |i,j|
+      list[1].gsub!(i,j)
+    end
+    a=`whiptail --title #{list[0]} --inputbox #{list[1]} 10 60 3>&1 1>&2 2>&3`
+    $S_Var[list[2]]=a
   elsif /^Set/ =~ such
     such.slice!(0,4)
     list = such.split("@")
@@ -117,6 +149,16 @@ def Parse_Block(such)
     else
       $NoVarErr.throw(such)
     end
+  elsif /^MsgBox/ =~ such
+    such.slice!(0,6)
+    list=such.split(",")
+    $Sym_Table.each do |i,j|
+      list[0].gsub!(i,j)
+    end
+    $Sym_Table.each do |i,j|
+      list[1].gsub!(i,j)
+    end
+    system "whiptail --title #{list[0]} --msgbox #{list[1]} 10 60"
   elsif /^Eval/ =~ such
     such.slice!(0,7)
     such.slice!(-1)
@@ -147,6 +189,8 @@ def RBasicKernelCheck(such)
   elsif /^Return/ =~ such
   elsif /^Sleep/ =~ such
   elsif /^EndSub/ =~ such
+  elsif /^MsgBox/ =~ such
+  elsif /^InputBox/ =~ such
   else
     $PCheck_b=1   
   end
