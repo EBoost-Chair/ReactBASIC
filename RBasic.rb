@@ -2,16 +2,15 @@
 # RBasic.rb
 # Ruby BASIC's main script.
 # By Lonely_Man<2754887003@qq.com>
-# Need:Define,Var,Call
 require "./modules/main.rb"
 require "./core/tokens.rb"
 require "./core/error.rb"
 if ARGV.include?("-v")
-  puts "rbasic 1.08 patch2(2018-1-29) By RBasicTeam"
+  puts "rbasic 1.08 patch3(2018-1-30) By RBasicTeam"
   exit()
 end
 if ARGV.include?("--debug")
-  puts "rbasic 1.08 patch2(2018-1-29) By RBasicTeam"
+  puts "rbasic 1.08 patch3(2018-1-30) By RBasicTeam"
 end
 if FileTest.exist?(ARGV[0]) != true
   $NoFileErr.throw(ARGV[0])
