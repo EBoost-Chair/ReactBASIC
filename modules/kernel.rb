@@ -1,197 +1,103 @@
-#!/usr/bin/ruby
-# kernel.rb
-# Ruby BASIC's kernel functions module
-# By Lonely_Man<2754887003@qq.com>
-require "./core/errorClass.rb"
+require "./modules/exp.rb"
+require "./core/protrol.rb"
 require "./core/error.rb"
-require "./core/sub.rb"
-require "./core/funcKill.rb"
-require "./core/tokens.rb"
-require "./modules/main.rb"
-def Parse_Basic(such)
-  $NoCmd_a=0
+def ReactBasic_Parse(such)
   if /^Print/ =~ such
-    such.slice!(0,8)
-    such.slice!(-1)
     a=such
+    a.slice!(0,6)
+    a0=get_value(a)
     $Sym_Table.each do |i,j|
-      a.gsub!(i,j)
+      a0.gsub!(i,j)
     end
-    puts(a)
-  elsif /^InputBox/ =~ such
-    such.slice!(0,10)
-    list=such.split(",")
-    $Sym_Table.each do |i,j|
-      list[0].gsub!(i,j)
+    print a0
+  elsif /^Set/ =~ such
+    a=such
+    a.slice!(0,5)
+    list=a.split(",")
+    if /^\$/ =~ list[1]
+      b=" "
+      b.concat(list[1])
+      list[1]=b
     end
-    $Sym_Table.each do |i,j|
-      list[1].gsub!(i,j)
-    end
-    a=`whiptail --title #{list[0]} --inputbox #{list[1]} 10 60 3>&1 1>&2 2>&3`
-    $Var[list[2]]=a
-  elsif /^MsgBox/ =~ such
-    such.slice!(0,7)
-    list=such.split(",")
-    $Sym_Table.each do |i,j|
-      list[0].gsub!(i,j)
-    end
-    $Sym_Table.each do |i,j|
-      list[1].gsub!(i,j)
-    end
-    system "whiptail --title #{list[0]} --msgbox #{list[1]} 10 60"
-  elsif /^CPrint/ =~ such
-    such.slice!(0,9)
-    such.slice!(-1)
-    print(such)
-  elsif /^Exit/ =~ such
-    puts()
-    exit()
+    $Var[list[0]]=get_value(list[1])
   elsif /^Rem/ =~ such
-  elsif /^Start/ =~ such
   elsif /^Sleep/ =~ such
-    such.slice!(0,6)
-    int=such.to_i()
-    sleep(int)
+    a=such
+    a.slice!(0,6)
+    a0=a.to_i()
+    sleep(a0)
   elsif /^Sub/ =~ such
-    such.slice!(0,5)
-    list = such.split("#")
+    a=such
+    a.slice!(0,5)
+    a.slice!(-1)
+    a.slice!(-1)
+    a.slice!(-1)
+    a.slice!(-1)
+    list=a.split(":")
     $Sub[list[0]]=list[1]
-  elsif /^VPrint/ =~ such
-    such.slice!(0,8)
-    if $Var.include?(such)
-      puts($Var[such])
-    else
-      $NoVarErr.throw(such)
-    end
-  elsif /^Eval/ =~ such
-    such.slice!(0,7)
-    such.slice!(-1)
-    list=such.split("|")
-    list.each do |i|
-      Parse_Block(i)
-    end
-  elsif /^Excute/ =~ such
-    such.slice!(0,8)
-    list=such.split("#")
-    list[1].slice!(0)
+  elsif /^Call/ =~ such
+    b=such
+    b.slice!(0,6)
+    list=b.split("(")
+    a=list[0]
     list[1].slice!(-1)
-    list1=list[1].split(",")
-    list1.each do |i|
+    list0=list[1].split(",")
+    list0.each do |i|
       j=i.split(":")
-      $S_Var[j[0]]=j[1]
-    end
-    if $Sub.include?(list[0])
-      list0=$Sub[list[0]].split("|")
-      $Name=such
-      list0.each do |i|
-        RBasicCheckMain(i)
-        if $PCheck_a==1 && $PCheck_b==1
-          $NoCmdErr.throw(i)
-        end 
-        RBasicBlockMain(i)
+      if /^\$/ =~ j[1]
+        b=" "
+        b.concat(j[1])
+        j[1]=b        
       end
-      if $RTken==1
-        $NoCmd_a=0
+      $S_Var[j[0]]=get_value(j[1])
+    end
+    if $Sub.include?(a)
+      a0=$Sub[a]
+      list=a0.split("\n ")
+      list.delete("")
+      list.each do |i|
+        ReactBasic_Parse_block(i)
       end
     else
-      $NoSubErr.throw(such)
+      $NoSubErr.throw(a)
     end
-    KillFunc()
+    $S_Var={}
   else
-    $NoCmd_a=1
+    $NoCmdErr.throw(such)
   end
 end
-def Parse_Block(such)
-  $NoCmd_a=0
+
+
+def ReactBasic_Parse_block(such)
   if /^Print/ =~ such
-    such.slice!(0,7)
-    such.slice!(-1)
-    $Sym_Table.each do |i,j|
-      a.gsub!(i,j)
-    end
-    puts(such)
-  elsif /^Sleep/ =~ such
-    such.slice!(0,5)
-    int=such.to_i()
-    sleep(int)
-  elsif /^CPrint/ =~ such
-    such.slice!(0,9)
-    such.slice!(-1)
-    print(such)
-  elsif /^Exit/ =~ such
-    puts()
-    exit()
-  elsif /^Rem/ =~ such
-  elsif /^Start/ =~ such
-  elsif /^InputBox/ =~ such
-    such.slice!(0,9)
-    list=such.split(",")
-    $Sym_Table.each do |i,j|
-      list[0].gsub!(i,j)
-    end
-    $Sym_Table.each do |i,j|
-      list[1].gsub!(i,j)
-    end
-    a=`whiptail --title #{list[0]} --inputbox #{list[1]} 10 60 3>&1 1>&2 2>&3`
-    $S_Var[list[2]]=a
-  elsif /^Set/ =~ such
-    such.slice!(0,4)
-    list = such.split("@")
-    $S_Var[list[0]]=list[1]
-  elsif /^VPrint/ =~ such
-    such.slice!(0,7)
-    if $S_Var.include?(such)
-      a=$S_Var[such]
-      $Sym_Table.each do |i,j|
-        a.gsub!(i,j)
-      end
-      puts a
+    a=such
+    if a[6]=="$"
+      a.slice!(0,5)
     else
-      $NoVarErr.throw(such)
+      a.slice!(0,6)
     end
-  elsif /^MsgBox/ =~ such
-    such.slice!(0,6)
-    list=such.split(",")
+    a0=get_value_block(a)
     $Sym_Table.each do |i,j|
-      list[0].gsub!(i,j)
+      a0.gsub!(i,j)
     end
-    $Sym_Table.each do |i,j|
-      list[1].gsub!(i,j)
-    end
-    system "whiptail --title #{list[0]} --msgbox #{list[1]} 10 60"
-  elsif /^Eval/ =~ such
-    such.slice!(0,7)
-    such.slice!(-1)
-    list=such.split("|")
-    list.each do |i|
-      Parse_Block(i)
-    end
-  elsif /^Return/ =~ such
-    such.slice!(0,7)
-    list=such.split(",")
-    $Var[list[0]]=list[1]
-  elsif /^EndSub/ =~ such
-    $RTken=1
-  else
-    $NoCmd_a=1
-  end
-end
-def RBasicKernelCheck(such)
-  $PCheck_b=0
-  if /^Print/ =~ such
-  elsif /^CPrint/ =~ such
-  elsif /^Exit/ =~ such
-  elsif /^Rem/ =~ such
-  elsif /^Start/ =~ such
+    print a0
   elsif /^Set/ =~ such
-  elsif /^VPrint/ =~ such
-  elsif /^Eval/ =~ such
-  elsif /^Return/ =~ such
+    a=such
+    a.slice!(0,4)
+    list=a.split(",")
+    if /^\$/ =~ list[1]
+      b=" "
+      b.concat(list[1])
+      list[1]=b
+    end
+    $S_Var[list[0]]=get_value_block(list[1])
+  elsif /^Rem/ =~ such
   elsif /^Sleep/ =~ such
-  elsif /^EndSub/ =~ such
-  elsif /^MsgBox/ =~ such
-  elsif /^InputBox/ =~ such
+    a=such
+    a.slice!(0,6)
+    a0=a.to_i()
+    sleep(a0)
   else
-    $PCheck_b=1   
+    $NoCmdErr.throw(such)
   end
 end
