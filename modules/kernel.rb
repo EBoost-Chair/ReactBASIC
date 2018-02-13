@@ -6,10 +6,15 @@ def ReactBasic_Parse(such)
     a=such
     a.slice!(0,6)
     a0=get_value(a)
-    $Sym_Table.each do |i,j|
-      a0.gsub!(i,j)
+    a0.to_s()
+    if a0.class!=String
+      print a0
+    else
+      $Sym_Table.each do |i,j|
+        a0.gsub!(i,j)
+      end
+      print a0
     end
-    print a0
   elsif /^Set/ =~ such
     a=such
     a.slice!(0,5)
@@ -35,6 +40,20 @@ def ReactBasic_Parse(such)
     a.slice!(-1)
     list=a.split(":")
     $Sub[list[0]]=list[1]
+  elsif /^Int/ =~ such
+    a=such
+    a.slice!(0,5)
+    list=a.split(",")
+    $Var[list[0]]=list[1].to_i()
+  elsif /^Bool/ =~ such
+    a=such
+    a.slice!(0,6)
+    list=a.split(",")
+    if list[1]=="true"
+      $Var[list[0]]=true
+    else
+      $Var[list[0]]=false
+    end
   elsif /^Call/ =~ such
     b=such
     b.slice!(0,6)
@@ -77,10 +96,28 @@ def ReactBasic_Parse_block(such)
       a.slice!(0,6)
     end
     a0=get_value_block(a)
-    $Sym_Table.each do |i,j|
-      a0.gsub!(i,j)
+    if a0.class!=String
+      print a0
+    else
+      $Sym_Table.each do |i,j|
+        a0.gsub!(i,j)
+      end
+      print a0
     end
-    print a0
+  elsif /^Int/ =~ such
+    a=such
+    a.slice!(0,4)
+    list=a.split(",")
+    $S_Var[list[0]]=list[1].to_i()
+  elsif /^Bool/ =~ such
+    a=such
+    a.slice!(0,5)
+    list=a.split(",")
+    if list[1]=="true"
+      $S_Var[list[0]]=true
+    else
+      $S_Var[list[0]]=false
+    end
   elsif /^Set/ =~ such
     a=such
     a.slice!(0,4)
