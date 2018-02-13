@@ -1,12 +1,12 @@
-Print "Hi"~n.
-Set a,b.
-Print $a.
-Set c,$a.
-Print $c.
-Sleep 1.
 Print Ow!~n.
+Bool a,true.
+Print $a.
+Print Hi~n.
 Sub Hi:
+ Int a,1
  Print Hi~n
  Print $a
+ Bool a,true
+ Print $a
 End.
-Call Hi(a:$a).
+Call Hi().
