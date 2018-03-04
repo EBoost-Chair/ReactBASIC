@@ -1,12 +1,11 @@
-Print Ow!~n.
+Print Ow!.
 Bool a,true.
-Print $a.
-Print Hi~n.
+Print Hi.
+Sub Hi2:
+ Print No!
+End.
 Sub Hi:
- Int a,1
- Print Hi~n
- Print $a
- Bool a,true
  Print $a
 End.
-Call Hi().
+Arg a:$a,b:c.
+Call_If $a,Hi.
