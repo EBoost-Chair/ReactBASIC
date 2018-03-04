@@ -26,6 +26,8 @@ def ReactBasic_Parse(such)
     end
     $Var[list[0]]=get_value(list[1])
   elsif /^Rem/ =~ such
+  elsif /^Exit/ =~ such
+    exit()
   elsif /^Sleep/ =~ such
     a=such
     a.slice!(0,6)
@@ -40,6 +42,19 @@ def ReactBasic_Parse(such)
     a.slice!(-1)
     list=a.split(":")
     $Sub[list[0]]=list[1]
+  elsif /^Arg/ =~ such
+    a=such
+    a.slice!(0,5)
+    list=a.split(",")
+    list.each do |i|
+      j=i.split(":")
+      if /^\$/ =~ j[1]
+        b=" "
+        b.concat(j[1])
+        j[1]=b        
+      end
+      $S_Var[j[0]]=get_value(j[1])
+    end
   elsif /^Int/ =~ such
     a=such
     a.slice!(0,5)
@@ -53,6 +68,28 @@ def ReactBasic_Parse(such)
       $Var[list[0]]=true
     else
       $Var[list[0]]=false
+    end
+  elsif /^Call_If/ =~ such
+    b=such
+    b.slice!(0,9)
+    list=b.split(",")
+    if /^\$/ =~ list[0]
+      b=" "
+      b.concat(list[0])
+      list[0]=b      
+    end
+    c=get_value(list[0])
+    if c=="true" || c==true 
+      if $Sub.include?(list[1])
+        a0=$Sub[list[1]]
+        list=a0.split("\n ")
+        list.delete("")
+        list.each do |i|
+          ReactBasic_Parse_block(i)
+        end
+      else
+        $NoSubErr.throw(list[1])
+      end
     end
   elsif /^Call/ =~ such
     b=such
@@ -104,6 +141,43 @@ def ReactBasic_Parse_block(such)
       end
       print a0
     end
+  elsif /^Arg/ =~ such
+    a=such
+    a.slice!(0,4)
+    list=a.split(",")
+    list.each do |i|
+      j=i.split(":")
+      if /^\$/ =~ j[1]
+        b=" "
+        b.concat(j[1])
+        j[1]=b        
+      end
+      $S_Var[j[0]]=get_value(j[1])
+    end
+  elsif /^Call_If/ =~ such
+    b=such
+    b.slice!(0,8)
+    list=b.split(",")
+    if /^\$/ =~ list[0]
+      b=" "
+      b.concat(list[0])
+      list[0]=b      
+    end
+    c=get_value(list[0])
+    if c=="true" || c==true 
+      if $Sub.include?(list[1])
+        a0=$Sub[list[1]]
+        list=a0.split("\n ")
+        list.delete("")
+        list.each do |i|
+          ReactBasic_Parse_block(i)
+        end
+      else
+        $NoSubErr.throw(list[1])
+      end
+    end
+  elsif /^Exit/ =~ such
+    exit()
   elsif /^Int/ =~ such
     a=such
     a.slice!(0,4)
