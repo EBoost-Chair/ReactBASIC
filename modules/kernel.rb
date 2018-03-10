@@ -6,7 +6,7 @@ def ReactBasic_Parse(such)
     a=such
     a.slice!(0,6)
     a0=get_value(a)
-    a0.to_s()
+    # a0.to_s()
     if a0.class!=String
       print a0
     else
@@ -57,12 +57,12 @@ def ReactBasic_Parse(such)
     end
   elsif /^Int/ =~ such
     a=such
-    a.slice!(0,5)
+    a.slice!(0,4)
     list=a.split(",")
     $Var[list[0]]=list[1].to_i()
   elsif /^Bool/ =~ such
     a=such
-    a.slice!(0,6)
+    a.slice!(0,5)
     list=a.split(",")
     if list[1]=="true"
       $Var[list[0]]=true
@@ -141,19 +141,21 @@ def ReactBasic_Parse_block(such)
       end
       print a0
     end
-  elsif /^Arg/ =~ such
+  elsif /^Call/ =~ such
     a=such
-    a.slice!(0,4)
-    list=a.split(",")
-    list.each do |i|
-      j=i.split(":")
-      if /^\$/ =~ j[1]
-        b=" "
-        b.concat(j[1])
-        j[1]=b        
+    a.slice!(0,5)
+    if $Sub.include?(a)
+      a0=$Sub[a]
+      list=a0.split("\n ")
+      list.delete("")
+      list.each do |i|
+        i.slice!(0)
+        ReactBasic_Parse_block(i)
       end
-      $S_Var[j[0]]=get_value(j[1])
+    else
+      $NoSubErr.throw(a)
     end
+    $S_Var={}
   elsif /^Call_If/ =~ such
     b=such
     b.slice!(0,8)
