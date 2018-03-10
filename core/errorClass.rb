@@ -7,6 +7,7 @@ class RBasicErr
     print @name
     print ":"
     puts ext
+    puts "==Error=="
     exit()
   end
   def name=(value)
