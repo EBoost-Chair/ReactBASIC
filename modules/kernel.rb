@@ -4,7 +4,11 @@ require "./core/error.rb"
 def ReactBasic_Parse(such)
   if /^Print/ =~ such
     a=such
-    a.slice!(0,6)
+    if a[7]=="$"
+      a.slice!(0,6)
+    else
+      a.slice!(0,7)
+    end
     a0=get_value(a)
     # a0.to_s()
     if a0.class!=String
@@ -25,7 +29,6 @@ def ReactBasic_Parse(such)
       list[1]=b
     end
     $Var[list[0]]=get_value(list[1])
-  elsif /^Rem/ =~ such
   elsif /^Exit/ =~ such
     exit()
   elsif /^Sleep/ =~ such
@@ -118,6 +121,7 @@ def ReactBasic_Parse(such)
       $NoSubErr.throw(a)
     end
     $S_Var={}
+  elsif /^Rem/ =~ such
   else
     $NoCmdErr.throw(such)
   end
