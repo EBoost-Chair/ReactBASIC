@@ -1,7 +1,6 @@
 Bool a,false.
 Sub a:
   Print Smart!
-  Print No!
 End.
 Sub s:
  Print $a

@@ -2,7 +2,7 @@ require "./core/errorClass.rb"
 $NoCmdErr=RBasicErr.new()
 $NoCmdErr.name="NoCommandError"
 $NoVarErr=RBasicErr.new()
-$NoVarErr.name="NoVariantError"
+$NoVarErr.name="NoVariableError"
 $NoSubErr=RBasicErr.new()
 $NoSubErr.name="NoSubError"
 $NoFileErr=RBasicErr.new()
