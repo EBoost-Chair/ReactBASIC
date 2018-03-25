@@ -1,6 +1,6 @@
 require "./modules/kernel.rb"
 if ARGV[0] == "-v"
-  puts "ReactBasic 1.14 (2018-3-11) By RBasicTeam"
+  puts "ReactBasic 1.15 (2018-3-25) By RBasicTeam"
   exit()
 end
 puts "==ReactBASIC==" 

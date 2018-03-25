@@ -1,10 +1,3 @@
-Bool a,false.
-Sub a:
-  Print Smart!
-End.
-Sub s:
- Print $a
- Call a
-End.
-Arg a:$a,b:b.
-Call s().
+String a,Cat~nDog.
+Equal a,b.
+Print $b.

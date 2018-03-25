@@ -19,16 +19,20 @@ def ReactBasic_Parse(such)
       end
       print a0
     end
-  elsif /^Set/ =~ such
+  elsif /^String/ =~ such
     a=such
-    a.slice!(0,5)
+    a.slice!(0,7)
     list=a.split(",")
-    if /^\$/ =~ list[1]
-      b=" "
-      b.concat(list[1])
-      list[1]=b
-    end
     $Var[list[0]]=get_value(list[1])
+  elsif /^Equal/ =~ such
+    a=such
+    a.slice!(0,7)
+    list=a.split(",")
+    if $Var.include?(list[0]) != true
+      $NoVarErr.throw(list[0])
+    else
+      $Var[list[1]]=$Var[list[0]]
+    end      
   elsif /^Exit/ =~ such
     exit()
   elsif /^Sleep/ =~ such
@@ -153,7 +157,6 @@ def ReactBasic_Parse_block(such)
       list=a0.split("\n ")
       list.delete("")
       list.each do |i|
-        i.slice!(0)
         ReactBasic_Parse_block(i)
       end
     else
