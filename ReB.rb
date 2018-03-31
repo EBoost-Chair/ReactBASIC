@@ -1,6 +1,6 @@
 require "./modules/kernel.rb"
 if ARGV[0] == "-v"
-  puts "ReactBasic 1.15 (2018-3-25) By RBasicTeam"
+  puts "ReactBasic 1.16 (2018-3-31) By RBasicTeam"
   exit()
 end
 puts "==ReactBASIC==" 
@@ -10,11 +10,12 @@ end
 if FileTest.exist?(ARGV[0]) != true
   $NoFileErr.throw(ARGV[0])
 end
-BasicScirpt=File.read(ARGV[0])
-if BasicScirpt[-1] == "\n"
-  BasicScirpt.slice!(-1)
+basicScirpt=File.read(ARGV[0])
+if basicScirpt[-1] == "\n"
+  basicScirpt.slice!(-1)
 end
-Basic=BasicScirpt.split(".")
+basicScirpt = "\n" + basicScirpt
+Basic=basicScirpt.split(".")
 Basic.each do |i|
   ReactBasic_Parse(i)
 end
